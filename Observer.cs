@@ -18,23 +18,23 @@ namespace Observer
             {
                 return;
             }
-            Notify?.Invoke($"Changed: {e.FullPath}");
+            Notify?.Invoke($"Changed: {e.FullPath}|\n\r");
         }
 
         public void OnCreated(object sender, FileSystemEventArgs e)
         {
-            string value = $"Created: {e.FullPath}";
+            string value = $"Created: {e.FullPath}|\n\r";
             Notify?.Invoke(value);
         }
         public void OnDeleted(object sender, FileSystemEventArgs e)
         {
-            Notify?.Invoke($"Deleted: {e.FullPath}");
+            Notify?.Invoke($"Deleted: {e.FullPath}|\n\r");
         }
         public void OnRenamed(object sender, RenamedEventArgs e)
         {
             Notify?.Invoke($"Renamed:");
-            Notify?.Invoke($"   Old: {e.OldFullPath}");
-            Notify?.Invoke($"   New: {e.FullPath}");
+            Notify?.Invoke($"   Old: {e.OldFullPath}|\n\r");
+            Notify?.Invoke($"   New: {e.FullPath}|\n\r");
         }
 
         public void OnError(object sender, ErrorEventArgs e) => 
@@ -44,7 +44,7 @@ namespace Observer
         {
             if (ex != null)
             {
-                Notify?.Invoke($"Message: {ex.Message}");
+                Notify?.Invoke($"Message: {ex.Message}|\n\r");
                 Notify?.Invoke($"Stacktrace:");
                 Notify?.Invoke(ex.StackTrace);
 

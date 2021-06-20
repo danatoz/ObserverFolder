@@ -40,6 +40,7 @@ namespace Observer
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.btnClean = new System.Windows.Forms.Button();
             this.stripMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,14 +51,24 @@ namespace Observer
             // 
             // tbTerminal
             // 
+            this.tbTerminal.AcceptsReturn = true;
+            this.tbTerminal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTerminal.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tbTerminal.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbTerminal.ForeColor = System.Drawing.Color.LimeGreen;
+            this.tbTerminal.HideSelection = false;
+            this.tbTerminal.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tbTerminal.Location = new System.Drawing.Point(0, 24);
             this.tbTerminal.Multiline = true;
             this.tbTerminal.Name = "tbTerminal";
-            this.tbTerminal.Size = new System.Drawing.Size(784, 440);
+            this.tbTerminal.ReadOnly = true;
+            this.tbTerminal.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbTerminal.Size = new System.Drawing.Size(784, 552);
             this.tbTerminal.TabIndex = 0;
+            this.tbTerminal.TabStop = false;
+            this.tbTerminal.Text = "\r\n";
             // 
             // stripMenu
             // 
@@ -108,12 +119,30 @@ namespace Observer
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
-
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // btnClean
+            // 
+            this.btnClean.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnClean.Location = new System.Drawing.Point(0, 581);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(784, 23);
+            this.btnClean.TabIndex = 2;
+            this.btnClean.Text = "Clean";
+            this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(784, 604);
+            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.tbTerminal);
             this.Controls.Add(this.stripMenu);
             this.MainMenuStrip = this.stripMenu;
@@ -137,6 +166,7 @@ namespace Observer
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button btnClean;
     }
 }
 
