@@ -41,11 +41,11 @@ namespace Observer
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.btnClean = new System.Windows.Forms.Button();
             this.tbFilter = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.cbChanged = new System.Windows.Forms.CheckBox();
+            this.cbRenamed = new System.Windows.Forms.CheckBox();
+            this.cbCreated = new System.Windows.Forms.CheckBox();
+            this.cbError = new System.Windows.Forms.CheckBox();
+            this.cbDeleted = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblLinkPath = new System.Windows.Forms.LinkLabel();
@@ -107,6 +107,7 @@ namespace Observer
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.openToolStripMenuItem.Text = "&Path";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -114,12 +115,14 @@ namespace Observer
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemOnClick);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItemOnClick);
             // 
             // timer
             // 
@@ -147,55 +150,55 @@ namespace Observer
             this.tbFilter.TabIndex = 3;
             this.tbFilter.Text = "*.xlsx";
             // 
-            // checkBox1
+            // cbChanged
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(48, 496);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(83, 19);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbChanged.AutoSize = true;
+            this.cbChanged.Location = new System.Drawing.Point(48, 496);
+            this.cbChanged.Name = "cbChanged";
+            this.cbChanged.Size = new System.Drawing.Size(74, 19);
+            this.cbChanged.TabIndex = 4;
+            this.cbChanged.Text = "Changed";
+            this.cbChanged.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // cbRenamed
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(200, 496);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(83, 19);
-            this.checkBox2.TabIndex = 5;
-            this.checkBox2.Text = "checkBox2";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cbRenamed.AutoSize = true;
+            this.cbRenamed.Location = new System.Drawing.Point(200, 496);
+            this.cbRenamed.Name = "cbRenamed";
+            this.cbRenamed.Size = new System.Drawing.Size(76, 19);
+            this.cbRenamed.TabIndex = 5;
+            this.cbRenamed.Text = "Renamed";
+            this.cbRenamed.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // cbCreated
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(48, 520);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(83, 19);
-            this.checkBox3.TabIndex = 6;
-            this.checkBox3.Text = "checkBox3";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.cbCreated.AutoSize = true;
+            this.cbCreated.Location = new System.Drawing.Point(48, 520);
+            this.cbCreated.Name = "cbCreated";
+            this.cbCreated.Size = new System.Drawing.Size(67, 19);
+            this.cbCreated.TabIndex = 6;
+            this.cbCreated.Text = "Created";
+            this.cbCreated.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // cbError
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(200, 520);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(83, 19);
-            this.checkBox4.TabIndex = 7;
-            this.checkBox4.Text = "checkBox4";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.cbError.AutoSize = true;
+            this.cbError.Location = new System.Drawing.Point(200, 520);
+            this.cbError.Name = "cbError";
+            this.cbError.Size = new System.Drawing.Size(51, 19);
+            this.cbError.TabIndex = 7;
+            this.cbError.Text = "Error";
+            this.cbError.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // cbDeleted
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(48, 544);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(83, 19);
-            this.checkBox5.TabIndex = 8;
-            this.checkBox5.Text = "checkBox5";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.cbDeleted.AutoSize = true;
+            this.cbDeleted.Location = new System.Drawing.Point(48, 544);
+            this.cbDeleted.Name = "cbDeleted";
+            this.cbDeleted.Size = new System.Drawing.Size(66, 19);
+            this.cbDeleted.TabIndex = 8;
+            this.cbDeleted.Text = "Deleted";
+            this.cbDeleted.UseVisualStyleBackColor = true;
             // 
             // checkBox6
             // 
@@ -225,6 +228,7 @@ namespace Observer
             this.lblLinkPath.TabIndex = 11;
             this.lblLinkPath.TabStop = true;
             this.lblLinkPath.Text = "C:\\\\";
+            this.lblLinkPath.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblLinkPath_LinkClicked);
             // 
             // lblPath
             // 
@@ -244,11 +248,11 @@ namespace Observer
             this.Controls.Add(this.lblLinkPath);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.cbDeleted);
+            this.Controls.Add(this.cbError);
+            this.Controls.Add(this.cbCreated);
+            this.Controls.Add(this.cbRenamed);
+            this.Controls.Add(this.cbChanged);
             this.Controls.Add(this.tbFilter);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.tbTerminal);
@@ -275,11 +279,11 @@ namespace Observer
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.TextBox tbFilter;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox cbChanged;
+        private System.Windows.Forms.CheckBox cbRenamed;
+        private System.Windows.Forms.CheckBox cbCreated;
+        private System.Windows.Forms.CheckBox cbError;
+        private System.Windows.Forms.CheckBox cbDeleted;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabel1;

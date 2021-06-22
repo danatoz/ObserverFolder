@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.Json;
+using System.Diagnostics;
+using System.Media;
 
 namespace Observer
 {
@@ -22,9 +24,7 @@ namespace Observer
             InitializeComponent();
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
-            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
-            aboutToolStripMenuItem.Click += AboutToolStripMenuItemOnClick;
-            exitToolStripMenuItem.Click += ExitToolStripMenuItemOnClick;
+
             Filter = tbFilter.Text;
             
         }
@@ -43,25 +43,40 @@ namespace Observer
         {
             try
             {
-                var watcher = new FileSystemWatcher(ChooseFolder);
+                var watcher = new FileSystemWatcher(ChooseFolder,Filter);
                 Observer observ = new Observer();
                 observ.Notify += DisplayMessage;
-                watcher.NotifyFilter = NotifyFilters.Attributes
-                                       | NotifyFilters.CreationTime
-                                       | NotifyFilters.DirectoryName
-                                       | NotifyFilters.FileName
-                                       | NotifyFilters.LastAccess
-                                       | NotifyFilters.LastWrite
-                                       | NotifyFilters.Security
-                                       | NotifyFilters.Size;
+                //watcher.NotifyFilter = NotifyFilters.Attributes
+                //                       | NotifyFilters.CreationTime
+                //                       | NotifyFilters.DirectoryName
+                //                       | NotifyFilters.FileName
+                //                       | NotifyFilters.LastAccess
+                //                       | NotifyFilters.LastWrite
+                //                       | NotifyFilters.Security
+                //                       | NotifyFilters.Size;
 
-                watcher.Changed += observ.Onchanged;
-                watcher.Created += observ.OnCreated;
-                watcher.Deleted += observ.OnDeleted;
-                watcher.Renamed += observ.OnRenamed;
-                watcher.Error += observ.OnError;
 
-                watcher.Filter = Filter;
+
+
+
+
+                if (cbChanged.Checked == false)
+                {
+                    watcher.Changed += null;
+                    //Beep();
+                }
+                else
+                {
+                    watcher.Changed += observ.Onchanged;
+                }
+                if (cbDeleted.Checked == true)
+                    watcher.Deleted += observ.OnDeleted;
+                if (cbRenamed.Checked == true)
+                    watcher.Renamed += observ.OnRenamed;
+                if (cbCreated.Checked == true)
+                    watcher.Created += observ.OnCreated;
+                if (cbError.Checked == true)
+                    watcher.Error += observ.OnError;
                 watcher.IncludeSubdirectories = true;
                 watcher.EnableRaisingEvents = true;
 
@@ -94,15 +109,24 @@ namespace Observer
         }
 
 
-        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 ChooseFolder = fbd.SelectedPath;
                 lblLinkPath.Text = ChooseFolder;
-
             }
+        }
+
+        private void lblLinkPath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("explorer", ChooseFolder);
+        }
+
+        private void Beep()
+        {
+            SystemSounds.Beep.Play();
         }
     }
 }
